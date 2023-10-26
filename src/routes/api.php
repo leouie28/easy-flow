@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\User;
+use App\Notifications\VerificationEmailNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/test', function() {
-    return 'hello world';
+Route::post('/test-email', function() {
+    $user = User::whereEmail('leouietabique@gmail.com')->first();
+
+    $user->notify(new VerificationEmailNotification());
+
+    return 'verification mail sent';
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
