@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\v1\TransactionController;
 use App\Models\User;
 use App\Notifications\VerificationEmailNotification;
 use Illuminate\Http\Request;
@@ -18,12 +19,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/test-email', function() {
-    $user = User::whereEmail('leouietabique@gmail.com')->first();
+    $user = User::whereEmail('user@test.com')->first();
 
-    $user->notify(new VerificationEmailNotification());
+    // $user->notify(new VerificationEmailNotification());
 
-    return 'verification mail sent';
+    return $user;
 });
+
+Route::resource('/test-transact', TransactionController::class);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
