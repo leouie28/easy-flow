@@ -1,10 +1,5 @@
 <?php
 
-use App\Http\Controllers\v1\TransactionController;
-use App\Models\User;
-use App\Notifications\VerificationEmailNotification;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,16 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/test-email', function() {
-    $user = User::whereEmail('user@test.com')->first();
+Route::prefix('v1')->group(__DIR__ . '/v1/index.php');
 
-    // $user->notify(new VerificationEmailNotification());
-
-    return $user;
-});
-
-Route::resource('/test-transact', TransactionController::class);
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });

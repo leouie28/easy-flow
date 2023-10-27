@@ -28,6 +28,10 @@ Route::get('/auth/google/call-back', function() {
     ];
 });
 
+Route::get('test-redirect', function() {
+    return redirect()->away('https:prolink.flowbyte.tech/auth/login');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });

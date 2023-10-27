@@ -3,20 +3,22 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
+// use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class VerificationEmailNotification extends Notification implements ShouldQueue
+class VerificationEmailNotification extends Notification
 {
     use Queueable;
+
+    public $query;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct($query)
     {
-        //
+        $this->query = $query;
     }
 
     /**
@@ -34,11 +36,12 @@ class VerificationEmailNotification extends Notification implements ShouldQueue
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $url = env('FRONT_URL', 'http://localhost:3000') . "?$this->query";
         return (new MailMessage)
                     ->subject('Verify Email')
                     ->greeting('Hello')
                     ->line('Click the button below to verify your email address.')
-                    ->action('Verify Email Address', url('https://test.com'))
+                    ->action('Verify Email Address', url($url))
                     ->line('If you did not create an account, no further action is required.');
     }
 

@@ -6,7 +6,9 @@ ARG uid
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
+  nano \
   git \
+  supervisor \
   curl \
   libpng-dev \
   libonig-dev \
