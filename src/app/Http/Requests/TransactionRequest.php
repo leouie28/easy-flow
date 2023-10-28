@@ -22,14 +22,14 @@ class TransactionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|string',
-            'model' => 'required|string',
+            // 'user_id' => 'required|string',
+            // 'model' => 'required|string',
             'amount' => 'required|numeric',
             'type' => 'required|string',
             'note' => 'nullable|string',
             'date' => 'required|date',
             'form' => 'required|string',
-            'save_type' => 'required|string',
+            // 'save_type' => 'required|string',
         ];
     }
 }

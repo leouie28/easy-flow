@@ -14,7 +14,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+        return resJson(Transaction::whereUserId(auth()->id())->paginate());
     }
 
     /**
@@ -30,12 +30,14 @@ class TransactionController extends Controller
      */
     public function store(TransactionRequest $request)
     {
-        $transc = Transaction::create($request->toArray());
+        $request['user_id'] = auth()->id();
+        if (!$request['note']) $request['note'] = $request['date'];
+        $transact = Transaction::create($request->toArray());
 
-        return [
+        return resJson([
             'message' => 'success',
-            'data' => $transc
-        ];
+            'data' => $transact
+        ]);
     }
 
     /**
@@ -43,7 +45,7 @@ class TransactionController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return resJson(Transaction::findOrFail($id));
     }
 
     /**
@@ -59,7 +61,7 @@ class TransactionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        return resJson(Transaction::whereId($id)->update($request->toArray()));
     }
 
     /**
@@ -67,6 +69,6 @@ class TransactionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return resJson(Transaction::whereId($id)->delete());
     }
 }

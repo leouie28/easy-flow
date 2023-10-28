@@ -8,7 +8,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
-class AuthService
+class AuthService 
 {
     public function register($data)
     {
@@ -65,5 +65,17 @@ class AuthService
     {
         Auth::logout();
         return resJson();
+    }
+
+    /**
+     * refresh token
+     */
+    public function refreshToken($token)
+    {
+        return resJson([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => Auth::factory()->getTTL() * 60
+        ]);
     }
 }
