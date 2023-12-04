@@ -10,18 +10,21 @@ class Transaction extends Model
     use HasFactory;
 
     protected $fillable = [
+        'fund_id',
         'user_id',
-        'model',
         'amount',
         'type',
         'note',
         'date',
-        'form',
-        'save_type',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function fund()
+    {
+        return $this->belongsTo(Fund::class);
     }
 }

@@ -3,18 +3,20 @@
 namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TransactionRequest;
-use App\Models\Transaction;
+use App\Http\Requests\Fund\CreateRequest;
+use App\Models\Fund;
 use Illuminate\Http\Request;
 
-class TransactionController extends Controller
+class FundController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return resJson(Transaction::whereUserId(auth()->id())->paginate());
+        $userId = auth()->id();
+
+        // resJson(Fund::where(''))
     }
 
     /**
@@ -28,16 +30,10 @@ class TransactionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(TransactionRequest $request)
+    public function store(CreateRequest $request)
     {
-        $request['user_id'] = auth()->id();
-        if (!$request['note']) $request['note'] = $request['date'];
-        $transact = Transaction::create($request->toArray());
-
-        return resJson([
-            'message' => 'success',
-            'data' => $transact
-        ]);
+        $fund = Fund::create($request->toArray());
+        return resJson($fund);
     }
 
     /**
@@ -45,7 +41,9 @@ class TransactionController extends Controller
      */
     public function show(string $id)
     {
-        return resJson(Transaction::findOrFail($id));
+        $fund = Fund::findOrFail($id);
+
+        return resJson($fund);
     }
 
     /**
@@ -61,7 +59,7 @@ class TransactionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return resJson(Transaction::whereId($id)->update($request->toArray()));
+        //
     }
 
     /**
@@ -69,6 +67,6 @@ class TransactionController extends Controller
      */
     public function destroy(string $id)
     {
-        return resJson(Transaction::whereId($id)->delete());
+        //
     }
 }

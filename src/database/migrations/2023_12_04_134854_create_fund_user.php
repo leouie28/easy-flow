@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('plans', function (Blueprint $table) {
+        Schema::create('fund_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->string('model')->default('personal');
-            $table->date('target_month');
-            $table->string('target_income');
-            $table->string('target_expense');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('fund_id')->constrained()->onDelete('cascade');
+            $table->boolean('is_owner')->default(false);
+            $table->boolean('is_remove')->default(false);
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('plans');
+        Schema::dropIfExists('fund_user');
     }
 };

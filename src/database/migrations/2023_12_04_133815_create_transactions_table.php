@@ -13,14 +13,12 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->string('model')->default('personal'); //personal or business
-            $table->string('amount');
-            $table->enum('type', ['income', 'expense']);
-            $table->string('note')->nullable();
-            $table->dateTime('date');
-            $table->enum('form', ['cash', 'credit'])->default('cash');
-            $table->string('save_type')->default('onine');
+            $table->foreignId('fund_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->float('amount');
+            $table->enum('type', ['fund', 'income', 'expense', 'transfer']);
+            $table->longText('note')->nullable();
+            $table->timestamp('date');
             $table->timestamps();
         });
     }
