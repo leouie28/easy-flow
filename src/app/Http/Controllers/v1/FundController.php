@@ -25,7 +25,8 @@ class FundController extends Controller
      */
     public function index()
     {
-        return ResourcesFund::collection(Fund::paginate());
+        $user = auth()->user();
+        return ResourcesFund::collection($user->funds()->paginate());
     }
 
     /**

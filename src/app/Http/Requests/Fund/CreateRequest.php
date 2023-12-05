@@ -25,7 +25,8 @@ class CreateRequest extends FormRequest
             'name' => 'required',
             'currency_symbol' => 'required',
             'description' => 'nullable',
-            'show_all_tranx' => 'required|boolean',
+            'show_all_tranx' => 'nullable|boolean',
+            'capital_amount' => 'nullable|numeric'
         ];
     }
 }

@@ -10,4 +10,9 @@ class CustomException extends Exception
     {
         return new self($message, 401);
     }
+
+    public static function reqError($message = "Request failed!", $code = 400)
+    {
+        return new self($message, $code);
+    }
 }

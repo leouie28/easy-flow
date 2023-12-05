@@ -14,6 +14,10 @@ class Fund extends JsonResource
      */
     public function toArray($request): array
     {
-        return parent::toArray($request);
+        $data = parent::toArray($request);
+
+        $data['owner'] = count($this->owner) > 0 ? $this->owner[0] : null;
+
+        return $data;
     }
 }
