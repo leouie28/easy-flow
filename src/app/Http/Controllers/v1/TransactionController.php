@@ -3,30 +3,16 @@
 namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Fund\CreateRequest;
-use App\Http\Resources\Fund as ResourcesFund;
-use App\Models\Fund;
-use App\Models\User;
-use App\Services\FundService;
 use Illuminate\Http\Request;
 
-class FundController extends Controller
+class TransactionController extends Controller
 {
-    private FundService $fundService;
-
-    public function __construct(FundService $fundService)
-    {
-        $this->fundService = $fundService;
-    }
-
-
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $user = auth()->user();
-        return ResourcesFund::collection($user->funds()->paginate());
+        //
     }
 
     /**
@@ -40,9 +26,9 @@ class FundController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateRequest $request)
+    public function store(Request $request)
     {
-        return $this->fundService->create($request);
+        //
     }
 
     /**
@@ -50,9 +36,7 @@ class FundController extends Controller
      */
     public function show(string $id)
     {
-        $fund = Fund::findOrFail($id);
-
-        return resJson($fund);
+        //
     }
 
     /**

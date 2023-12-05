@@ -24,8 +24,9 @@ class CreateRequest extends FormRequest
         return [
             'name' => 'required',
             'currency_symbol' => 'required',
+            'capital' => 'required|numeric',
             'description' => 'nullable',
-            'show_all_tranx' => 'required|boolean',
+            'show_all_tranx' => 'nullable|boolean',
         ];
     }
 }
