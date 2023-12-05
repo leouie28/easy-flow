@@ -16,19 +16,24 @@ class Fund extends Model
         'show_all_tranx'
     ];
 
+    protected $with = [
+        // 'owner'
+    ];
+
     public function users()
     {
-        return $this->belongsToMany(User::class)->withPivot('is_owner');
+        return $this->belongsToMany(User::class)->withTimestamps()->withPivot('is_owner');
     }
 
     public function owner()
     {
-        return $this->users()->wherePivot('is_owner', true)->first();
+       return $this->users()->wherePivot('is_owner', true);
     }
-
 
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
     }
+
+
 }

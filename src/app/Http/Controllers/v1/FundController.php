@@ -4,19 +4,28 @@ namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Fund\CreateRequest;
+use App\Http\Resources\Fund as ResourcesFund;
 use App\Models\Fund;
+use App\Models\User;
+use App\Services\FundService;
 use Illuminate\Http\Request;
 
 class FundController extends Controller
 {
+    private FundService $fundService;
+
+    public function __construct(FundService $fundService)
+    {
+        $this->fundService = $fundService;
+    }
+
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $userId = auth()->id();
-
-        // resJson(Fund::where(''))
+        return ResourcesFund::collection(Fund::paginate());
     }
 
     /**
@@ -32,8 +41,7 @@ class FundController extends Controller
      */
     public function store(CreateRequest $request)
     {
-        $fund = Fund::create($request->toArray());
-        return resJson($fund);
+        return $this->fundService->create($request);
     }
 
     /**
