@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\v1;
 
+use App\Exceptions\CustomException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Fund\CreateRequest;
 use App\Http\Resources\Fund as ResourcesFund;
@@ -77,5 +78,28 @@ class FundController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    // ==========================
+    // =   Custom Controllers   =
+    // ==========================
+
+    /**
+     * Add user to the fund
+     */
+    public function addUser(Request $request, $fundId)
+    {
+        $fund = Fund::findOrFail($fundId);
+        if (!User::whereId($request->user_id)->exists()) {
+            throw CustomException::reqError("User not exists!");
+        }
+
+        if ($fund->users->where('id', $request->user_id)->first()) {
+            throw CustomException::reqError("User already added");
+        }
+
+        $fund->users()->attach($request->user_id, ['is_owner' => false]);
+
+        return resJson("User successfully added.");
     }
 }

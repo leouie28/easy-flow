@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\v1;
 
+use App\Exceptions\CustomException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Transaction\CreateRequest;
+use App\Models\Fund;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -26,9 +30,14 @@ class TransactionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        //
+        $request['user_id'] = auth()->id();
+        if (!Fund::whereId($request['fund_id'])->exists()) {
+            throw CustomException::reqError("Fund does not exist! Transaction was not save.");
+        }
+
+        return resJson(Transaction::create($request->toArray()));
     }
 
     /**

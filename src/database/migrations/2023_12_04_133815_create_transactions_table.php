@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('fund_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->float('amount');
+            $table->decimal('amount');
             $table->enum('type', ['fund', 'income', 'expense', 'transfer']);
+            $table->enum('form', ['cash', 'credit', 'check'])->default('cash');
             $table->longText('note')->nullable();
             $table->timestamp('date');
             $table->timestamps();
