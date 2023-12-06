@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('fund_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
             $table->decimal('amount');
             $table->enum('type', ['fund', 'income', 'expense', 'transfer']);
             $table->enum('form', ['cash', 'credit', 'check'])->default('cash');

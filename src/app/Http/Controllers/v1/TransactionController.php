@@ -16,7 +16,8 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth()->user();
+        return $user->transactions()->paginate();
     }
 
     /**
@@ -61,7 +62,13 @@ class TransactionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $tranx = Transaction::findOrFail($id);
+        $tranx->update($request->toArray());
+
+        return resJson([
+            'data' => $tranx,
+            'message' => 'Transaction successfully updated.'
+        ]);
     }
 
     /**
@@ -69,6 +76,9 @@ class TransactionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $tranx = Transaction::findOrFail($id);
+        $tranx->delete();
+
+        return resJson("Transaction successfully deleted.");
     }
 }

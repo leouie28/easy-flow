@@ -69,7 +69,12 @@ class FundController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $fund = Fund::findOrFail($id)->update($request->toArray());
+
+        return resJson([
+            'data' => $fund,
+            'message' => "Fund successfully udpated."
+        ]);
     }
 
     /**
@@ -89,17 +94,18 @@ class FundController extends Controller
      */
     public function addUser(Request $request, $fundId)
     {
-        $fund = Fund::findOrFail($fundId);
-        if (!User::whereId($request->user_id)->exists()) {
-            throw CustomException::reqError("User not exists!");
-        }
+        $data = $request->validate(['user_id' => 'required']);
+        return $this->fundService->addUser($fundId, $data['user_id']);
+    }
 
-        if ($fund->users->where('id', $request->user_id)->first()) {
-            throw CustomException::reqError("User already added");
-        }
 
-        $fund->users()->attach($request->user_id, ['is_owner' => false]);
+    public function removeUser(Request $request, $fundId)
+    {
+        $data = $request->validate(['user_id' => 'required']);
+        $fund = Fund::findOrFail($data['user_id']);
 
-        return resJson("User successfully added.");
+        $fund->users()->detach($data['user_id']);
+
+        return resJson("User successfully remove on this fund.");
     }
 }

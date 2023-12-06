@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Exceptions\CustomException;
 use App\Models\Fund;
+use App\Models\User;
 
 class FundService
 {
@@ -21,8 +22,22 @@ class FundService
         return resJson(Fund::find($fund->id));
     }
 
-    public function update($data)
+    /**
+     * Add user to the fund with validation
+     */
+    public function addUser($fundId, $userId)
     {
-        // $
+        $fund = Fund::findOrFail($fundId);
+        if (!User::whereId($userId)->exists()) {
+            throw CustomException::reqError("User not exists!");
+        }
+
+        if ($fund->users->where('id', $userId)->first()) {
+            throw CustomException::reqError("User already added.");
+        }
+
+        $fund->users()->attach($userId, ['is_owner' => false]);
+
+        return resJson("User successfully added.");
     }
 }
