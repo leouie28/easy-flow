@@ -10,10 +10,10 @@ class Fund extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'currency_symbol',
+        'title',
+        'currency',
         'description',
-        'show_all_tranx'
+        'color'
     ];
 
     protected $with = [

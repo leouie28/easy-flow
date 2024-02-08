@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('avatar')->nullable();
+            $table->string('phone_no')->unique()->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('pin')->nullable();
             $table->foreignId('role_id')->nullable()->constrained()->onDelete('set null');
             $table->rememberToken();
             $table->timestamps();

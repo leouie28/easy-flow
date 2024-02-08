@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('funds', function (Blueprint $table) {
             $table->id();
-            $table->text('name');
-            $table->string('currency_symbol');
+            $table->text('title');
+            $table->string('currency')->default('php');
             $table->text('description')->nullable();
-            $table->boolean('show_all_tranx')->default(false);
+            $table->string('color')->nullable();
             $table->timestamps();
         });
     }

@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fund_user', function (Blueprint $table) {
+        Schema::create('business_types', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('fund_id')->constrained()->onDelete('cascade');
-            $table->boolean('is_owner')->default(false);
-            $table->boolean('is_remove')->default(false);
+            $table->text('name');
+            $table->text('description')->nullable();
+            $table->text('icon')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fund_user');
+        Schema::dropIfExists('business_types');
     }
 };

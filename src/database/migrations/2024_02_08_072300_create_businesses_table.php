@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('purchases', function (Blueprint $table) {
+        Schema::create('businesses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('plan_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
-            $table->unsignedBigInteger('voucher_id')->nullable();
-            $table->text('remarks')->nullable();
-            $table->text('callback_token')->nullable();
-            $table->boolean('current_active');
-            $table->timestamp('expire_at');
+            $table->foreignId('business_type_id')->nullable()->constrained()->onDelete('set null');
+            $table->text('name');
+            $table->text('address')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('purchases');
+        Schema::dropIfExists('businesses');
     }
 };
