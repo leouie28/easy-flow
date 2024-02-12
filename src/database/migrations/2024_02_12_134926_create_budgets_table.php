@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('businesses', function (Blueprint $table) {
+        Schema::create('budgets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
-            $table->foreignId('business_type_id')->nullable()->constrained()->onDelete('set null');
-            $table->text('name');
-            $table->text('address')->nullable();
+            $table->text('title');
+            $table->string('currency')->default('php');
+            $table->longText('description')->nullable();
+            $table->string('color')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('businesses');
+        Schema::dropIfExists('budgets');
     }
 };

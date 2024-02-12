@@ -5,14 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Business extends Model
+class BudgetTransaction extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'budget_id',
         'user_id',
-        'business_type_id',
-        'name',
-        'address'
-    ]; 
+        'transactions_type_id',
+        'amount',
+        'note',
+        'date',
+    ];
 }

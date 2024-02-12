@@ -42,8 +42,7 @@ class AuthController extends Controller
      */
     public function profile()
     {
-        if ($user = Auth::user()) return $user;
-
+        return resJson(auth()->user());
         // throw CustomException::authError('Unauthorize request!');
     }
 }

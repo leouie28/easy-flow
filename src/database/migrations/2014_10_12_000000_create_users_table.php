@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('avatar')->nullable();
             $table->string('phone_no')->unique()->nullable();
             $table->string('email')->unique();
+            $table->string('username')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->foreignId('role_id')->nullable()->constrained()->onDelete('set null');

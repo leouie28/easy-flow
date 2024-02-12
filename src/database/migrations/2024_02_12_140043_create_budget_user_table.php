@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('business_types', function (Blueprint $table) {
+        Schema::create('budget_user', function (Blueprint $table) {
             $table->id();
-            $table->text('name');
-            $table->text('description')->nullable();
-            $table->text('icon')->nullable();
+            $table->foreignId('budget_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->boolean('owner')->default(false);
+            $table->boolean('disabled')->default(false);
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('business_types');
+        Schema::dropIfExists('budget_user');
     }
 };

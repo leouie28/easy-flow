@@ -5,13 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BusinessType extends Model
+class Budget extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'title',
+        'currency',
         'description',
-        'icon'
+        'color',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }
