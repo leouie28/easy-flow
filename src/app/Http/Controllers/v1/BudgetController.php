@@ -4,6 +4,7 @@ namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Budget\CreateRequest;
+use App\Http\Requests\Budget\UpdateRequest;
 use App\Models\Budget;
 use App\Services\BudgetService;
 use Illuminate\Http\Request;
@@ -25,7 +26,7 @@ class BudgetController extends Controller
     {
         $user = auth()->user();
 
-        return resJson(Budget::with('users')->get());
+        return resJson($user->budgets()->get());
     }
 
     /**
@@ -65,9 +66,9 @@ class BudgetController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, string $id)
     {
-        //
+        return resJson($this->budgetService->update($request, $id));
     }
 
     /**

@@ -3,10 +3,18 @@
 namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
+use App\Services\BudgetTransactionService;
 use Illuminate\Http\Request;
 
 class BudgetTransactionController extends Controller
 {
+    private BudgetTransactionService $budgetTransactionService;
+
+    public function __construct(BudgetTransactionService $budgetTransactionService)
+    {
+        $this->budgetTransactionService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -28,7 +36,9 @@ class BudgetTransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request['user_id'] = auth()->id();
+
+        return resJson($this->budgetTransactionService->create($request));
     }
 
     /**

@@ -32,4 +32,20 @@ class BudgetService
         return Budget::find($budget->id);
     }
 
+    public function update($data, $id)
+    {
+        $budget = Budget::findOrFail($id)->update($data->toArray());
+
+        $types = [];
+        foreach ($data['transaction_types'] as $type) {
+            $types[] = TransactionType::find($type['id'])->update([
+                'name' => $type['name'],
+                'color' => $type['color'],
+                'icon' => $type['icon']
+            ]);
+        }
+
+        return ['transaction_types' => $types, ...$budget];
+    }
+
 }
