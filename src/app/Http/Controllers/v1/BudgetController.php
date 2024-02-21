@@ -26,7 +26,7 @@ class BudgetController extends Controller
     {
         $user = auth()->user();
 
-        return resJson($user->budgets()->get());
+        return resJson($user->budgets()->orderBy('id', 'desc')->get());
     }
 
     /**

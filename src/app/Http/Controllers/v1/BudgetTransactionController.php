@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Budget\Transaction\CreateRequest;
 use App\Services\BudgetTransactionService;
 use Illuminate\Http\Request;
 
@@ -34,7 +35,7 @@ class BudgetTransactionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
         $request['user_id'] = auth()->id();
 
