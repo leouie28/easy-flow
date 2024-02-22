@@ -13,7 +13,7 @@ class BudgetTransactionController extends Controller
 
     public function __construct(BudgetTransactionService $budgetTransactionService)
     {
-        $this->budgetTransactionService;
+        $this->budgetTransactionService = $budgetTransactionService;
     }
 
     /**
