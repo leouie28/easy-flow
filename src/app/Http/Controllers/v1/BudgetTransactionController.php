@@ -21,7 +21,9 @@ class BudgetTransactionController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth()->user();
+
+        return resJson($user->budgetTransactions()->with(['budget', 'transactionType'])->orderBy('id', 'desc')->paginate());
     }
 
     /**

@@ -17,4 +17,19 @@ class BudgetTransaction extends Model
         'note',
         'date',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function Budget()
+    {
+        return $this->belongsTo(Budget::class);
+    }
+
+    public function transactionType()
+    {
+        return $this->belongsTo(TransactionType::class);
+    }
 }
