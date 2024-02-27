@@ -55,6 +55,7 @@ class AuthService
         }
 
         $user['token'] = $token;
+        $user['inventories'] = $user->inventories;
         return resJson($user);
     }
 

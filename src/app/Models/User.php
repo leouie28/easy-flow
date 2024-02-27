@@ -91,4 +91,9 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     {
         return $this->hasMany(TransactionType::class);
     }
+
+    public function inventories()
+    {
+        return $this->belongsToMany(Inventory::class)->withTimestamps()->withPivot('owner');
+    }
 }
