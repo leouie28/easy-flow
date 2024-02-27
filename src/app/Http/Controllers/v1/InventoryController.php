@@ -4,6 +4,7 @@ namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Inventory\CreateRequest;
+use App\Models\Inventory;
 use App\Services\InventoryService;
 use Illuminate\Http\Request;
 
@@ -48,7 +49,9 @@ class InventoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $inventory = Inventory::with('inventoryFields')->findOrFail($id);
+
+        return resJson($inventory);
     }
 
     /**
