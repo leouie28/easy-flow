@@ -14,7 +14,9 @@ class InventoryField extends Model
         'label',
         'description',
         'type',
-        'order'
+        'order',
+        'items',
+        'options'
     ];
 
     public function inventory()

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->string('type');
             $table->integer('order')->nullable();
+            $table->json('items')->nullable();
+            $table->json('options')->nullable();
             $table->timestamps();
         });
     }
