@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\v1\InventoryController;
+use App\Http\Controllers\v1\InventoryDataController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('')->group(function () {
     Route::middleware('auth:api')->group(function() {
-        Route::resource('src', InventoryController::class);
+        Route::post('{id}', [InventoryDataController::class, 'store']);
     });
 });

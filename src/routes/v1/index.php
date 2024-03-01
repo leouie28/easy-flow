@@ -9,3 +9,4 @@ Route::prefix('budget-transactions')->group(__DIR__ . '/budget-transaction.php')
 // Route::prefix('transaction')->group(__DIR__ . '/transaction.php');
 
 Route::prefix('inventories')->group(__DIR__ . '/inventory.php');
+Route::prefix('inventory-data')->group(__DIR__ . '/inventory-data.php');
