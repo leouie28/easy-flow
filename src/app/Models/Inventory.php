@@ -24,4 +24,9 @@ class Inventory extends Model
     {
         return $this->hasMany(InventoryField::class);
     }
+
+    public function inventoryDatas()
+    {
+        return $this->hasMany(InventoryData::class);
+    }
 }

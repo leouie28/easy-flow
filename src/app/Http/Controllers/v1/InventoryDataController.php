@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Inventory;
 use App\Services\InventoryDataService;
 use Illuminate\Http\Request;
 
@@ -13,6 +14,13 @@ class InventoryDataController extends Controller
     public function __construct(InventoryDataService $inventoryDataService)
     {
         $this->inventoryDataService = $inventoryDataService;
+    }
+
+    public function index(string $id)
+    {
+        $inventory = Inventory::findOrFail($id);
+
+        return resJson($inventory->inventoryDatas()->get());
     }
 
     public function store(Request $request, string $id)
