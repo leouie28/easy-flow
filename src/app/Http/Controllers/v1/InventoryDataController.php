@@ -20,7 +20,7 @@ class InventoryDataController extends Controller
     {
         $inventory = Inventory::findOrFail($id);
 
-        return resJson($inventory->inventoryDatas()->get());
+        return resJson($inventory->inventoryDatas()->orderBy('id', 'desc')->get());
     }
 
     public function store(Request $request, string $id)
@@ -29,5 +29,10 @@ class InventoryDataController extends Controller
         $request['inventory_id'] = $id;
 
         return resJson($this->inventoryDataService->create($request));
+    }
+
+    public function destroy(string $id)
+    {
+        return resJson($this->inventoryDataService->remove($id));
     }
 }

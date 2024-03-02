@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Budget\CreateRequest;
 use App\Http\Requests\Budget\UpdateRequest;
 use App\Models\Budget;
+use App\Models\User;
 use App\Services\BudgetService;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,7 @@ class BudgetController extends Controller
      */
     public function index()
     {
-        $user = auth()->user();
+        $user = User::find(auth()->id());
 
         return resJson($user->budgets()->orderBy('id', 'desc')->get());
     }

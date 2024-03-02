@@ -16,10 +16,10 @@ return new class extends Migration
             // $table->foreignId('inventory_data_id')->constrained()->onDelete('cascade');
             $table->unsignedBigInteger('inventory_data_id');
             $table->unsignedBigInteger('inventory_field_id');
+            $table->longText('value')->nullable();
             $table->float('number_value')->nullable();
             $table->boolean('boolean_value')->nullable();
             $table->date('date_value')->nullable();
-            $table->longText('text_value')->nullable();
             $table->json('json_value')->nullable();
             $table->unsignedBigInteger('relation_value')->nullable();
             $table->timestamps();

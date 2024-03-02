@@ -12,10 +12,10 @@ class InventoryDataValue extends Model
     protected $fillable = [
         'inventory_data_id',
         'inventory_field_id',
+        'value',
         'number_value',
         'boolean_value',
         'date_value',
-        'text_value',
         'json_value',
         'relation_value',
     ];
