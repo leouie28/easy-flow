@@ -31,19 +31,20 @@ class InventoryService
         $inventory = Inventory::create($data->toArray());
         $inventory->users()->attach($user, ['owner' => true]);
 
+        $count = 0;
         foreach ($data['fields'] as $field) {
-
-
-
-            InventoryField::create([
-                'inventory_id' => $inventory->id,
-                'label' => $field['label'],
-                // 'description' => $field['description'],
-                'type' => $field['type'],
-                // 'order' => $field['order'],
-                'items' => !empty($field['collections']) ? json_encode($this->formatItems($field['collections'])) : null,
-                'options' => !empty((array) $field['options']) ? json_encode($field['options']) : null
-            ]);
+            if ($field['action'] == 'create') {
+                $count++;
+                InventoryField::create([
+                    'inventory_id' => $inventory->id,
+                    'label' => $field['label'],
+                    // 'description' => $field['description'],
+                    'type' => $field['type'],
+                    'order' => $count,
+                    'items' => !empty($field['collections']) ? json_encode($this->formatItems($field['collections'])) : null,
+                    'options' => !empty((array) $field['options']) ? json_encode($field['options']) : null
+                ]);
+            }
         }
 
         return $inventory;

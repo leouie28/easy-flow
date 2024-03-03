@@ -77,9 +77,14 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
         return $this->belongsTo(Role::class);
     }
 
+    public function workspaces()
+    {
+        return $this->belongsToMany(Workspace::class)->withTimestamps()->withPivot(['role', 'active', 'disabled']);
+    }
+
     public function budgets()
     {
-        return $this->belongsToMany(Budget::class)->withTimestamps()->withPivot('owner');
+        return $this->hasMany(Budget::class);
     }
 
     public function budgetTransactions()
@@ -94,6 +99,6 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 
     public function inventories()
     {
-        return $this->belongsToMany(Inventory::class)->withTimestamps()->withPivot('owner');
+        return $this->hasMany(Inventory::class);
     }
 }

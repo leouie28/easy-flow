@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inventories', function (Blueprint $table) {
+        Schema::create('user_workspace', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('workspace_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
-            $table->text('name');
-            $table->longText('description')->nullable();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('workspace_id')->constrained();
+            $table->enum('role', ['owner', 'admin', 'member'])->default('member');
+            $table->boolean('active')->default(false);
             $table->boolean('disabled')->default(false);
             $table->timestamps();
         });
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inventories');
+        Schema::dropIfExists('user_workspace');
     }
 };

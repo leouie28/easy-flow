@@ -13,16 +13,23 @@ class Budget extends Model
         'title',
         'currency',
         'description',
-        'color',
+        'options',
+        'workspace_id',
+        'user_id'
     ];
 
     protected $with = [
         'transactionTypes'
     ];
 
+    public function workspace()
+    {
+        return $this->belongsTo(Workspace::class);
+    }
+
     public function users()
     {
-        return $this->belongsToMany(User::class)->withTimestamps()->withPivot('owner');
+        return $this->belongsTo(User::class)->withTimestamps()->withPivot('owner');
     }
 
     public function transactionTypes()
