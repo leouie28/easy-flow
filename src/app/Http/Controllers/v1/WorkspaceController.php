@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Workspace;
 use Illuminate\Http\Request;
 
 class WorkspaceController extends Controller
@@ -64,9 +65,16 @@ class WorkspaceController extends Controller
         //
     }
 
-    public function activeWorksapce()
+    public function activeWorkspace()
     {
         $user = auth()->user();
         return resJson($user->workspaces()->where('active', true)->first());
+    }
+
+    public function members()
+    {
+        $activeWorkspace = auth()->user()->activeWorkspace;
+        
+        return resJson($activeWorkspace->users()->paginate());
     }
 }
