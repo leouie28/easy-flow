@@ -24,11 +24,11 @@ class BudgetController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($workspaceId)
+    public function index()
     {
-        $workspace = Workspace::findOrFail($workspaceId);
+        $activeWorkspace = auth()->user()->activeWorkspace;
 
-        return resJson($workspace->budgets()->orderBy('id', 'desc')->get());
+        return resJson($activeWorkspace->budgets()->orderBy('id', 'desc')->get());
     }
 
     /**
@@ -44,7 +44,9 @@ class BudgetController extends Controller
      */
     public function store(CreateRequest $request)
     {
-        $request['user_id'] = auth()->id();
+        $user = auth()->user();
+        $request['user_id'] = $user->id;
+        $request['workspace_id'] = $user->activeWorkspace->id;
 
         return resJson($this->budgetService->create($request));
     }

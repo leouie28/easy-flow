@@ -9,6 +9,8 @@ class BudgetTransaction extends Model
 {
     use HasFactory;
 
+    use \Znck\Eloquent\Traits\BelongsToThrough;
+
     protected $fillable = [
         'budget_id',
         'user_id',
@@ -17,6 +19,11 @@ class BudgetTransaction extends Model
         'note',
         'date',
     ];
+
+    public function workspace()
+    {
+        return $this->belongsToThrough(Workspace::class, Budget::class);
+    }
 
     public function user()
     {

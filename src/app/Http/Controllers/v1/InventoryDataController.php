@@ -20,7 +20,7 @@ class InventoryDataController extends Controller
     {
         $inventory = Inventory::findOrFail($id);
 
-        return resJson($inventory->inventoryDatas()->orderBy('id', 'desc')->get());
+        return resJson($inventory->inventoryDatas()->orderBy('id', 'desc')->paginate());
     }
 
     public function store(Request $request, string $id)

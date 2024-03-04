@@ -51,6 +51,10 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
         'pin' => 'hashed'
     ];
 
+    protected $appends = [
+        'active_workspace'
+    ];
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
@@ -100,5 +104,11 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     public function inventories()
     {
         return $this->hasMany(Inventory::class);
+    }
+
+    public function getActiveWorkspaceAttribute()
+    {
+        $user = auth()->user();
+        return $user->workspaces()->where('active', true)->first();
     }
 }

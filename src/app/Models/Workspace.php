@@ -24,4 +24,14 @@ class Workspace extends Model
     {
         return $this->hasMany(Budget::class);
     }
+
+    public function inventories()
+    {
+        return $this->hasMany(Inventory::class);
+    }
+
+    public function budgetTransactions()
+    {
+        return $this->hasManyThrough(BudgetTransaction::class, Budget::class);
+    }
 }

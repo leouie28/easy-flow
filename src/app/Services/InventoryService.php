@@ -6,6 +6,7 @@ use App\Exceptions\CustomException;
 use App\Models\Inventory;
 use App\Models\InventoryField;
 use App\Models\User;
+use App\Models\Workspace;
 
 class InventoryService
 {
@@ -22,14 +23,13 @@ class InventoryService
     
     public function create($data)
     {
-        $user = User::findOrFail($data['user_id']);
+        $workspace = Workspace::findOrFail($data['workspace_id']);
         
-        if ($user->inventories()->where('name', $data['name'])->exists()) {
-            throw CustomException::reqError("Inventory name already registered in your data!");
+        if ($workspace->inventories()->where('name', $data['name'])->exists()) {
+            throw CustomException::reqError("Inventory name already registered in workspace!");
         }
 
         $inventory = Inventory::create($data->toArray());
-        $inventory->users()->attach($user, ['owner' => true]);
 
         $count = 0;
         foreach ($data['fields'] as $field) {

@@ -22,8 +22,8 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        $user = auth()->user();
-        return resJson($user->inventories);
+        $activeWorkspace = auth()->user()->activeWorkspace;
+        return resJson($activeWorkspace->inventories);
     }
 
     /**
@@ -39,7 +39,9 @@ class InventoryController extends Controller
      */
     public function store(CreateRequest $request)
     {
-        $request['user_id'] = auth()->id();
+        $user = auth()->user();
+        $request['user_id'] = $user->id;
+        $request['workspace_id'] = $user->activeWorkspace->id;
 
         return resJson($this->inventoryService->create($request));
     }
