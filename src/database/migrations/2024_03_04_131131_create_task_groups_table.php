@@ -18,7 +18,6 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->foreignId('workspace_id')->constrained()->onDelete('cascade');
             $table->boolean('private')->default(false);
-            $table->boolean('disabled')->default(false);
             $table->timestamps();
         });
     }

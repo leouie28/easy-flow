@@ -16,7 +16,6 @@ class TaskGroup extends Model
         'workspace_id',
         'assigned_id',
         'private',
-        'disabled'
     ];
 
     public function workspace()
