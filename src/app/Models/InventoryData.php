@@ -11,7 +11,8 @@ class InventoryData extends Model
 
     protected $fillable = [
         'inventory_id',
-        'user_id'
+        'user_id',
+        'raw_values',
     ];
 
     protected $with = [

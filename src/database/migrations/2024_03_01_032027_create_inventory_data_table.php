@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('inventory_id')->constrained()->onDelete('cascade');
             $table->unsignedInteger('user_id');
+            $table->json('raw_values')->nullable();
             $table->timestamps();
         });
     }

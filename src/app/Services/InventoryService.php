@@ -7,6 +7,7 @@ use App\Models\Inventory;
 use App\Models\InventoryField;
 use App\Models\User;
 use App\Models\Workspace;
+use Illuminate\Support\Facades\DB;
 
 class InventoryService
 {
@@ -29,25 +30,34 @@ class InventoryService
             throw CustomException::reqError("Inventory name already registered in workspace!");
         }
 
-        $inventory = Inventory::create($data->toArray());
+        $mutate = DB::transaction(function() use($data) {
+            $inventory = Inventory::create($data->toArray());
 
-        $count = 0;
-        foreach ($data['fields'] as $field) {
-            if ($field['action'] == 'create') {
-                $count++;
-                InventoryField::create([
-                    'inventory_id' => $inventory->id,
-                    'label' => $field['label'],
-                    // 'description' => $field['description'],
-                    'type' => $field['type'],
-                    'order' => $count,
-                    'items' => !empty($field['collections']) ? json_encode($this->formatItems($field['collections'])) : null,
-                    'options' => !empty((array) $field['options']) ? json_encode($field['options']) : null
-                ]);
+            $count = 0;
+            $fields = [];
+            foreach ($data['fields'] as $field) {
+                if ($field['action'] == 'create') {
+                    $count++;
+                    $fields[] = $field['label'];
+                    InventoryField::create([
+                        'inventory_id' => $inventory->id,
+                        'label' => $field['label'],
+                        // 'description' => $field['description'],
+                        'type' => $field['type'],
+                        'order' => $count,
+                        'items' => !empty($field['collections']) ? json_encode($this->formatItems($field['collections'])) : null,
+                        'options' => !empty((array) $field['options']) ? json_encode($field['options']) : null
+                    ]);
+                }
             }
-        }
+    
+            $inventory->raw_fields = json_encode($fields);
+            $inventory->save();
 
-        return $inventory;
+            return $inventory;
+        });
+
+        return $mutate;
     }
 
     public function update($data, $id)

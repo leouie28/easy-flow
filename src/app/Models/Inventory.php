@@ -14,7 +14,8 @@ class Inventory extends Model
         'user_id',
         'name',
         'description',
-        'disabled'
+        'disabled',
+        'raw_fields',
     ];
 
     public function users()

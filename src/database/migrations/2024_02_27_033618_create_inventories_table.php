@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('name');
             $table->longText('description')->nullable();
             $table->boolean('disabled')->default(false);
+            $table->json('raw_fields')->nullable();
             $table->timestamps();
         });
     }
