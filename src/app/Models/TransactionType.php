@@ -12,6 +12,6 @@ class TransactionType extends Model
     protected $fillable = [
         'budget_id',
         'name',
-        'options'
+        'setup'
     ];
 }

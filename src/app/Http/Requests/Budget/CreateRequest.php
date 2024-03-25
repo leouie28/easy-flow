@@ -25,7 +25,7 @@ class CreateRequest extends FormRequest
             'title' => 'required',
             'currency' => 'nullable',
             'description' => 'nullable',
-            'color' => 'nullable',
+            'setup' => 'nullable',
             'transaction_types' => 'required'
         ];
     }

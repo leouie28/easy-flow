@@ -19,6 +19,7 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->boolean('disabled')->default(false);
             $table->json('raw_fields')->nullable();
+            $table->json('setup')->nullable();
             $table->timestamps();
         });
     }

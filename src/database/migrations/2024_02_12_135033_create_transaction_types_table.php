@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('budget_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->json('options')->nullable();
+            $table->json('setups')->nullable();
             $table->timestamps();
         });
     }

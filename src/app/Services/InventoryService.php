@@ -46,7 +46,7 @@ class InventoryService
                         'type' => $field['type'],
                         'order' => $count,
                         'items' => !empty($field['collections']) ? json_encode($this->formatItems($field['collections'])) : null,
-                        'options' => !empty((array) $field['options']) ? json_encode($field['options']) : null
+                        'setup' => !empty((array) $field['setup']) ? json_encode($field['setup']) : null
                     ]);
                 }
             }

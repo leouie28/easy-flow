@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('type');
             $table->integer('order')->nullable();
             $table->json('items')->nullable();
-            $table->json('options')->nullable();
+            $table->json('setup')->nullable();
             $table->timestamps();
         });
     }

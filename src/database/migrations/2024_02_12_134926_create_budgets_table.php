@@ -16,7 +16,7 @@ return new class extends Migration
             $table->text('title');
             $table->string('currency')->default('php');
             $table->longText('description')->nullable();
-            $table->json('options')->nullable();
+            $table->json('setup')->nullable();
             $table->foreignId('workspace_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();

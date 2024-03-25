@@ -13,7 +13,7 @@ class Budget extends Model
         'title',
         'currency',
         'description',
-        'options',
+        'setup',
         'workspace_id',
         'user_id'
     ];
